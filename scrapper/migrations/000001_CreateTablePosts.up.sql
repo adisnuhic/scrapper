@@ -1,0 +1,7 @@
+CREATE TABLE posts (
+  id  INT NOT NULL  AUTO_INCREMENT,
+  title VARCHAR(255) NULL,
+  body VARCHAR(255) NULL,
+  created_at TIMESTAMP DEFAULT now(),
+  PRIMARY KEY(id)
+);

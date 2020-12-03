@@ -1,0 +1,7 @@
+CREATE TABLE sources (
+  id  INT NOT NULL  AUTO_INCREMENT,
+  source VARCHAR(255) NULL,
+  source_url VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT now(),
+  PRIMARY KEY(id)
+);

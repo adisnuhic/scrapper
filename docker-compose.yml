@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+  scrapper:
+    build: ./scrapper
+    depends_on: 
+      - db_scrapper
+    env_file: ./scrapper/.env
+    restart: on-failure 
+  db_scrapper: 
+    image: mysql:5.7  
+    ports:
+      - "3307:3306"
+    volumes: 
+      - scrapper-data:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: scrapper
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+volumes:
+  scrapper-data:
+
+# scrapper service will fail at the begining until DB is ready to accept connections. 
+# Event though scrapper depends on DB that means on running container not on mysql ready for connections. 
+# So restart scrapper service on failure
