@@ -1,7 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	fmt.Printf("RUNNING IN API SERVICE... \n")
+
+	// run ever x seconds
+	ticker := time.NewTicker(25 * time.Second)
+
+	for {
+		select {
+		case <-ticker.C:
+			fmt.Printf("%v", "\n -------------- RUNNING IN API -------------- \n")
+		}
+	}
+
 }
