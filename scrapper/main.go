@@ -45,7 +45,7 @@ func main() {
 	scrapBl := business.NewScrapBusiness(scrapSvc, postSvc, sourceSvc)
 
 	// run ever x seconds
-	ticker := time.NewTicker(25 * time.Second)
+	ticker := time.NewTicker(100000 * time.Second)
 
 	for {
 		select {

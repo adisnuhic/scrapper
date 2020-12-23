@@ -12,6 +12,8 @@ services:
       - db_api
     env_file: ./api/.env
     restart: on-failure    
+    ports:
+      - "8282:8282"
   db_scrapper: 
     image: mysql:5.7  
     ports:
