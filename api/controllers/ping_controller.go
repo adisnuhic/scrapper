@@ -11,6 +11,7 @@ type IPingController interface {
 }
 
 type pingController struct {
+	BaseController
 	Business business.IPingBusiness
 }
 
@@ -24,8 +25,5 @@ func NewPingController(business business.IPingBusiness) IPingController {
 // Ping returns string "pong"
 func (ctrl pingController) Ping(ctx *gin.Context) {
 	msg := ctrl.Business.Ping()
-
-	ctx.JSON(200, gin.H{
-		"message": msg,
-	})
+	ctrl.RenderSuccess(ctx, msg)
 }
