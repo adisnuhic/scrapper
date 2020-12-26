@@ -8,7 +8,10 @@ import (
 	"github.com/adisnuhic/scrapper/initialize"
 	"github.com/adisnuhic/scrapper/repositories"
 	"github.com/adisnuhic/scrapper/services"
+	"github.com/gin-gonic/gin"
 )
+
+var app *gin.Engine
 
 func main() {
 
@@ -28,19 +31,13 @@ func main() {
 	blPing := business.NewPingBusiness(pingService)
 
 	// Init controllers
-	pingController := controllers.NewPingController(blPing)
+	pingController = controllers.NewPingController(blPing)
 
 	// Init framework
-	app := initialize.Gin()
+	app = initialize.Gin()
 
-	/* ------------------------------------------------- */
-	/*   					ROUTES						 */
-	/* ------------------------------------------------- */
-	v1 := app.Group("/v1")
-
-	// Ping controller routes
-	pingRoutes := v1.Group("/ping")
-	pingRoutes.GET("/", pingController.Ping)
+	// Init routes
+	initalizeRoutes()
 
 	// Run app
 	app.Run(":8282")
