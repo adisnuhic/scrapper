@@ -3,7 +3,7 @@ package main
 import "github.com/adisnuhic/scrapper/controllers"
 
 var (
-	pingController controllers.IPingController
+	accountController controllers.IAccountController
 )
 
 // initalizeRoutes initialize app routes
@@ -11,7 +11,9 @@ func initalizeRoutes() {
 
 	v1 := app.Group("/v1")
 
-	// Ping controller routes
-	pingRoutes := v1.Group("/ping")
-	pingRoutes.GET("/", pingController.Ping)
+	// Auth controller routes
+	authRoutes := v1.Group("/account")
+	authRoutes.GET("/ping", accountController.Ping)
+	authRoutes.POST("/register", accountController.Register)
+	authRoutes.POST("/login", accountController.Ping)
 }

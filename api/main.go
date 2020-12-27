@@ -22,16 +22,16 @@ func main() {
 	db.Init(cfg)
 
 	// Init repositories
-	pingRepo := repositories.NewPingRepository()
+	accountRepo := repositories.NewAccountRepository()
 
 	// Init services
-	pingService := services.NewPingService(pingRepo)
+	accountSvc := services.NewAccountService(accountRepo)
 
 	// Init business
-	blPing := business.NewPingBusiness(pingService)
+	accountBiz := business.NewAccountBusiness(accountSvc)
 
 	// Init controllers
-	pingController = controllers.NewPingController(blPing)
+	accountController = controllers.NewAccountController(accountBiz)
 
 	// Init framework
 	app = initialize.Gin()
