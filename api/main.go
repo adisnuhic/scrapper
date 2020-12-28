@@ -22,13 +22,16 @@ func main() {
 	db.Init(cfg)
 
 	// Init repositories
-	accountRepo := repositories.NewAccountRepository()
+	accountRepo := repositories.NewAccountRepository(db.Connection())
+	userRepo := repositories.NewUserRepository(db.Connection())
 
 	// Init services
 	accountSvc := services.NewAccountService(accountRepo)
+	userSvc := services.NewUserService(userRepo)
 
 	// Init business
-	accountBiz := business.NewAccountBusiness(accountSvc)
+	accountBiz := business.NewAccountBusiness(accountSvc, userSvc)
+	business.NewUserBusiness(userSvc)
 
 	// Init controllers
 	accountController = controllers.NewAccountController(accountBiz)

@@ -8,8 +8,8 @@ import (
 
 // IAccountController interface
 type IAccountController interface {
-	Ping(ctx *gin.Context)
 	Register(ctx *gin.Context)
+	Login(ctx *gin.Context)
 }
 
 type accountController struct {
@@ -22,12 +22,6 @@ func NewAccountController(business business.IAccountBusiness) IAccountController
 	return &accountController{
 		Business: business,
 	}
-}
-
-// Ping returns string "pong"
-func (ctrl accountController) Ping(ctx *gin.Context) {
-	msg := ctrl.Business.Ping()
-	ctrl.RenderSuccess(ctx, msg)
 }
 
 // Register user
@@ -45,5 +39,10 @@ func (ctrl accountController) Register(ctx *gin.Context) {
 		return
 	}
 
-	ctrl.RenderSuccess(ctx, "SUCCESS")
+	ctrl.RenderSuccess(ctx, nil)
+}
+
+// Login user
+func (ctrl accountController) Login(ctx *gin.Context) {
+	ctrl.RenderSuccess(ctx, "LOGGED IN - NOT IMPLEMENTED")
 }

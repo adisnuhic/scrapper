@@ -12,8 +12,7 @@ func initalizeRoutes() {
 	v1 := app.Group("/v1")
 
 	// Auth controller routes
-	authRoutes := v1.Group("/account")
-	authRoutes.GET("/ping", accountController.Ping)
-	authRoutes.POST("/register", accountController.Register)
-	authRoutes.POST("/login", accountController.Ping)
+	accountRoutes := v1.Group("/account")
+	accountRoutes.POST("/register", accountController.Register)
+	accountRoutes.POST("/login", accountController.Login)
 }
