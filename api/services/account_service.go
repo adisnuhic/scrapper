@@ -1,14 +1,14 @@
 package services
 
 import (
-	"github.com/adisnuhic/scrapper/models"
-	apperror "github.com/adisnuhic/scrapper/pkg"
-	"github.com/adisnuhic/scrapper/repositories"
+	"github.com/adisnuhic/scrapper_api/models"
+	apperror "github.com/adisnuhic/scrapper_api/pkg"
+	"github.com/adisnuhic/scrapper_api/repositories"
 )
 
 // IAccountService interface
 type IAccountService interface {
-	Register(user *models.User) *apperror.AppError
+	Register(user *models.User) (*models.User, *apperror.AppError)
 }
 
 type accountService struct {
@@ -23,6 +23,6 @@ func NewAccountService(repo repositories.IAccountRepository) IAccountService {
 }
 
 // Register user
-func (svc accountService) Register(user *models.User) *apperror.AppError {
+func (svc accountService) Register(user *models.User) (*models.User, *apperror.AppError) {
 	return svc.Repository.Register(user)
 }

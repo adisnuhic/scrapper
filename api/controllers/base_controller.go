@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/adisnuhic/scrapper/viewmodels"
+	"github.com/adisnuhic/scrapper_api/viewmodels"
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 )

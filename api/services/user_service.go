@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/adisnuhic/scrapper/models"
-	apperror "github.com/adisnuhic/scrapper/pkg"
-	"github.com/adisnuhic/scrapper/repositories"
+	"github.com/adisnuhic/scrapper_api/models"
+	apperror "github.com/adisnuhic/scrapper_api/pkg"
+	"github.com/adisnuhic/scrapper_api/repositories"
 )
 
 // IUserService interface

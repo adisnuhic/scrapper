@@ -1,10 +1,10 @@
 package repositories
 
 import (
-	"github.com/adisnuhic/scrapper/db"
-	"github.com/adisnuhic/scrapper/ecode"
-	"github.com/adisnuhic/scrapper/models"
-	apperror "github.com/adisnuhic/scrapper/pkg"
+	"github.com/adisnuhic/scrapper_api/db"
+	"github.com/adisnuhic/scrapper_api/ecode"
+	"github.com/adisnuhic/scrapper_api/models"
+	apperror "github.com/adisnuhic/scrapper_api/pkg"
 )
 
 // IUserRepository interface

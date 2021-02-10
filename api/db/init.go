@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/adisnuhic/scrapper/config"
+	"github.com/adisnuhic/scrapper_api/config"
 	"github.com/jinzhu/gorm"
 
 	// initialize mysql driver

@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/adisnuhic/scrapper/business"
-	"github.com/adisnuhic/scrapper/config"
-	"github.com/adisnuhic/scrapper/controllers"
-	"github.com/adisnuhic/scrapper/db"
-	"github.com/adisnuhic/scrapper/initialize"
-	"github.com/adisnuhic/scrapper/repositories"
-	"github.com/adisnuhic/scrapper/services"
+	"github.com/adisnuhic/scrapper_api/business"
+	"github.com/adisnuhic/scrapper_api/config"
+	"github.com/adisnuhic/scrapper_api/controllers"
+	"github.com/adisnuhic/scrapper_api/db"
+	"github.com/adisnuhic/scrapper_api/initialize"
+	"github.com/adisnuhic/scrapper_api/repositories"
+	"github.com/adisnuhic/scrapper_api/services"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,17 +24,25 @@ func main() {
 	// Init repositories
 	accountRepo := repositories.NewAccountRepository(db.Connection())
 	userRepo := repositories.NewUserRepository(db.Connection())
+	authRepo := repositories.NewAuthProviderRepository(db.Connection())
+	tokenRepo := repositories.NewTokenRepository(db.Connection())
 
 	// Init services
 	accountSvc := services.NewAccountService(accountRepo)
 	userSvc := services.NewUserService(userRepo)
+	authProviderSvc := services.NewAuthProviderService(authRepo)
+	authSvc := services.NewAuthService()
+	tokenSv := services.NewTokenService(tokenRepo)
+	postSvc := services.NewPostService()
 
 	// Init business
-	accountBiz := business.NewAccountBusiness(accountSvc, userSvc)
+	accountBiz := business.NewAccountBusiness(accountSvc, userSvc, authProviderSvc, authSvc, tokenSv)
 	business.NewUserBusiness(userSvc)
+	postBiz := business.NewPostBusiness(postSvc)
 
 	// Init controllers
 	accountController = controllers.NewAccountController(accountBiz)
+	postController = controllers.NewPostController(postBiz)
 
 	// Init framework
 	app = initialize.Gin()
