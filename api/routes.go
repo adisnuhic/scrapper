@@ -1,6 +1,9 @@
 package main
 
-import "github.com/adisnuhic/scrapper_api/controllers"
+import (
+	"github.com/adisnuhic/scrapper_api/controllers"
+	middleware "github.com/adisnuhic/scrapper_api/middlewares"
+)
 
 var (
 	accountController controllers.IAccountController
@@ -19,7 +22,7 @@ func initalizeRoutes() {
 	accountRoutes.POST("/refresh-token", accountController.RefreshToken)
 
 	// Post controller routes
-	postRoutes := v1.Group("/posts")
+	postRoutes := v1.Group("/posts").Use(middleware.Authorization())
 	postRoutes.GET("/", postController.GetAll)
 
 }
