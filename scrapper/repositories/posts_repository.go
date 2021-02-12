@@ -1,6 +1,8 @@
 package repositories
 
 import (
+	"errors"
+
 	"github.com/adisnuhic/scrapper/db"
 	"github.com/adisnuhic/scrapper/ecode"
 	"github.com/adisnuhic/scrapper/models"
@@ -11,6 +13,7 @@ import (
 type PostRepository interface {
 	GetByID(id uint64) (*models.Post, *apperror.AppError)
 	CreateMany(posts *models.Posts) (*models.Posts, *apperror.AppError)
+	GetAll() (*models.Posts, *apperror.AppError)
 }
 
 type postRepository struct {
@@ -55,4 +58,17 @@ func (repo *postRepository) CreateMany(posts *models.Posts) (*models.Posts, *app
 	tx.Commit()
 
 	return &myPosts, nil
+}
+
+// GetAll returns all posts
+func (repo *postRepository) GetAll() (*models.Posts, *apperror.AppError) {
+	model := make(models.Posts, 0)
+
+	tx := repo.Store.Find(&model)
+
+	if tx.Error != nil && !tx.RecordNotFound() {
+		return nil, apperror.New(ecode.ErrUnableToFetchPostCode, errors.New(ecode.ErrUnableToFetchPostMsg), ecode.ErrUnableToFetchPostMsg)
+	}
+
+	return &model, nil
 }

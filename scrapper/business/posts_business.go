@@ -9,6 +9,7 @@ import (
 // PostBusiness interface
 type PostBusiness interface {
 	GetByID(id uint64) (*models.Post, *apperror.AppError)
+	GetAll() (*models.Posts, *apperror.AppError)
 }
 
 type postBusiness struct {
@@ -22,6 +23,12 @@ func NewPostBusiness(svc services.PostService) PostBusiness {
 	}
 }
 
+// GetByID returns post for provided ID
 func (bl *postBusiness) GetByID(id uint64) (*models.Post, *apperror.AppError) {
 	return bl.service.GetByID(id)
+}
+
+// GetAll reuturns all posts
+func (bl *postBusiness) GetAll() (*models.Posts, *apperror.AppError) {
+	return bl.service.GetAll()
 }

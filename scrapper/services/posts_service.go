@@ -10,6 +10,7 @@ import (
 type PostService interface {
 	GetByID(id uint64) (*models.Post, *apperror.AppError)
 	CreateMany(posts *models.Posts) (*models.Posts, *apperror.AppError)
+	GetAll() (*models.Posts, *apperror.AppError)
 }
 
 type postService struct {
@@ -28,6 +29,12 @@ func (svc *postService) CreateMany(posts *models.Posts) (*models.Posts, *apperro
 	return svc.repo.CreateMany(posts)
 }
 
+// GetByID return post for provided ID
 func (svc *postService) GetByID(id uint64) (*models.Post, *apperror.AppError) {
 	return svc.repo.GetByID(id)
+}
+
+// GetAll returns all posts
+func (svc *postService) GetAll() (*models.Posts, *apperror.AppError) {
+	return svc.repo.GetAll()
 }

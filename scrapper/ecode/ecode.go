@@ -36,4 +36,9 @@ const (
 	ErrUnableToCreatePostCode = 1300
 	// ErrUnableToCreatePostMsg message
 	ErrUnableToCreatePostMsg = "unable to create post"
+
+	// ErrUnableToFetchPostCode code
+	ErrUnableToFetchPostCode = 1400
+	// ErrUnableToFetchPostMsg message
+	ErrUnableToFetchPostMsg = "unable to fetch posts"
 )
