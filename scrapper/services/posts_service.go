@@ -6,7 +6,7 @@ import (
 	"github.com/adisnuhic/scrapper/repositories"
 )
 
-// PostService asd
+// PostService -
 type PostService interface {
 	GetByID(id uint64) (*models.Post, *apperror.AppError)
 	CreateMany(posts *models.Posts) (*models.Posts, *apperror.AppError)

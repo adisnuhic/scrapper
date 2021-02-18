@@ -19,7 +19,8 @@ type DBConnection struct {
 
 // AppConfig application configuration
 type AppConfig struct {
-	DBConnections map[string]DBConnection
+	DBConnections  map[string]DBConnection
+	GRPCServerPort string
 }
 
 // Load app configuration
@@ -37,6 +38,7 @@ func Load() *AppConfig {
 				DbLogging:         true,
 			},
 		},
+		GRPCServerPort: os.Getenv("GRPC_SERVER_PORT"),
 	}
 }
 
