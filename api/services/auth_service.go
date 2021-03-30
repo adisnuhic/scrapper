@@ -46,7 +46,7 @@ func (svc authService) ComparePasswordHash(password string, hash string) bool {
 // GenerateAccessToken generates access token
 func (svc authService) GenerateAccessToken(userID uint64, email string) (string, *apperror.AppError) {
 	jwtSecret := []byte("someSecret")
-	expirationTime := time.Now().Add(2 * time.Minute)
+	expirationTime := time.Now().Add(300 * time.Minute)
 
 	type CustomClaims struct {
 		ID    uint64 `json:"id"`

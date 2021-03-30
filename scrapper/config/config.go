@@ -38,7 +38,7 @@ func Load() *AppConfig {
 				DbLogging:         true,
 			},
 		},
-		GRPCServerPort: os.Getenv("GRPC_SERVER_PORT"),
+		GRPCServerPort: os.Getenv("DEV_GRPC_SERVER_PORT"),
 	}
 }
 

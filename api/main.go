@@ -5,6 +5,7 @@ import (
 	"github.com/adisnuhic/scrapper_api/config"
 	"github.com/adisnuhic/scrapper_api/controllers"
 	"github.com/adisnuhic/scrapper_api/db"
+	grpcClient "github.com/adisnuhic/scrapper_api/grpc"
 	"github.com/adisnuhic/scrapper_api/initialize"
 	"github.com/adisnuhic/scrapper_api/repositories"
 	"github.com/adisnuhic/scrapper_api/services"
@@ -21,6 +22,9 @@ func main() {
 	// Init db
 	db.Init(cfg)
 
+	// Init GRPC Client
+	grpcClient.Init(cfg)
+
 	// Init repositories
 	accountRepo := repositories.NewAccountRepository(db.Connection())
 	userRepo := repositories.NewUserRepository(db.Connection())
@@ -33,16 +37,16 @@ func main() {
 	authProviderSvc := services.NewAuthProviderService(authRepo)
 	authSvc := services.NewAuthService()
 	tokenSv := services.NewTokenService(tokenRepo)
-	postSvc := services.NewPostService()
+	services.NewPostService()
 
 	// Init business
 	accountBiz := business.NewAccountBusiness(accountSvc, userSvc, authProviderSvc, authSvc, tokenSv)
 	business.NewUserBusiness(userSvc)
-	postBiz := business.NewPostBusiness(postSvc)
+	postBiz := business.NewPostBusiness()
 
 	// Init controllers
 	accountController = controllers.NewAccountController(accountBiz)
-	postController = controllers.NewPostController(postBiz)
+	postController = controllers.NewPostController(postBiz, grpcClient.Connection())
 
 	// Init framework
 	app = initialize.Gin()

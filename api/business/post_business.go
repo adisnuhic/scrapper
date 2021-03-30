@@ -3,7 +3,6 @@ package business
 import (
 	"github.com/adisnuhic/scrapper_api/models"
 	apperror "github.com/adisnuhic/scrapper_api/pkg"
-	"github.com/adisnuhic/scrapper_api/services"
 )
 
 // IPostBusiness intefrace
@@ -12,16 +11,13 @@ type IPostBusiness interface {
 }
 
 type postBusiness struct {
-	Service services.IPostService
 }
 
 // NewPostBusiness -
-func NewPostBusiness(svc services.IPostService) IPostBusiness {
-	return &postBusiness{
-		Service: svc,
-	}
+func NewPostBusiness() IPostBusiness {
+	return &postBusiness{}
 }
 
 func (bl postBusiness) GetAll() (*models.Posts, *apperror.AppError) {
-	return bl.Service.GetAll()
+	return nil, nil
 }

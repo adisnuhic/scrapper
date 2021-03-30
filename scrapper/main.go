@@ -1,10 +1,9 @@
 package main
 
 import (
-	"context"
 	"fmt"
-
 	"net"
+
 	"time"
 
 	"github.com/adisnuhic/scrapper/business"
@@ -28,9 +27,6 @@ const (
 	Cause = "cause"
 )
 
-type server struct {
-}
-
 func main() {
 
 	// Setup logging
@@ -53,23 +49,23 @@ func main() {
 	business.NewPostBusiness(postSvc)
 	scrapBl := business.NewScrapBusiness(scrapSvc, postSvc, sourceSvc)
 
-	// Starting GRPC server
-	listener, err := net.Listen("tcp", cfg.GRPCServerPort)
-	if err != nil {
-		log.Fatalf("%v", err)
-	}
-
-	srv := grpc.NewServer()
-	proto.RegisterPostServiceServer(srv, &server{})
-	reflection.Register(srv)
+	// GRPC SERVER
 	go func() {
+		listener, err := net.Listen("tcp", cfg.GRPCServerPort)
+		if err != nil {
+			log.Fatalf("%v", err)
+		}
+		srv := grpc.NewServer()
+		proto.RegisterPostServiceServer(srv, business.MyServer{PostService: postSvc})
+		reflection.Register(srv)
+
 		if e := srv.Serve(listener); e != nil {
-			log.Fatalf("%v %v", "unable to start GRPC ", e)
+			log.Fatalf("%v %v", "unable to start GRPC server!", e)
 		}
 	}()
 
 	// run ever x seconds
-	ticker := time.NewTicker(10000 * time.Second)
+	ticker := time.NewTicker(100000 * time.Second)
 
 	for {
 		select {
@@ -88,16 +84,4 @@ func main() {
 		}
 	}
 
-}
-
-func (s server) GetAll(ctx context.Context, req *proto.GetAllPostsRequest) (*proto.GetAllPostsResponse, error) {
-	mockPosts := []*proto.Post{
-		{
-			ID:    2,
-			Title: "Test1",
-			Body:  "Test1 Body",
-		},
-	}
-
-	return &proto.GetAllPostsResponse{Posts: mockPosts}, nil
 }

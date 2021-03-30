@@ -5,6 +5,8 @@ services:
     depends_on: 
       - db_scrapper
     env_file: ./scrapper/.env
+    ports:
+      - "4040:4040"
     restart: on-failure 
   api:
     build: ./api
